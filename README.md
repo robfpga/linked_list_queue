@@ -16,7 +16,7 @@ individual Queues for each of the N contexts in the system.
 
 The requirement to maintain N seperate queues becomes inefficient when the
 latency across each context becomes high. In this case, each Queue must be sized
-towards the worst case condition each though this condition is pathelogical and
+towards the worst case condition even though this condition is pathelogical and
 non-illustrative of normative conditions.
 
 A secondary solution is to maintain N queues a individual Listed Lists data
@@ -72,7 +72,7 @@ once the initial lookup has completed. To accomplish this, forwarding logic is
 necessary at the output of the link-state RAM to its input. This cannot be
 realized while maintaining a competitive clock frequency.
 
-There are no limitations PUSH operations nor operations to varying contexts.
+There are no limitations on PUSH operations nor operations to varying contexts.
 
 ## Error handling
 
