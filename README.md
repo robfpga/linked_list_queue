@@ -97,3 +97,16 @@ The presented solution exhibits the following performance characteristics:
 
 * The queue may consume one command per cycle, where a command is either a PUSH
   or a POP.
+
+Fully randomized performance measurement indicates a utilization of >92%. This
+figure is highly dependent upon the underlying statistics of the command
+stream. The lower bound on performance is 50%.
+
+## Verification Methodology
+
+A fully randomized, self-checking verification environment is presented.
+
+* Test 0: 10000 commands are issued to the Queue. Command type (push/pop),
+  context and data are fully randomized. Software queues maintain the expected
+  state of each command as it completes. Stimulus is constraint and always
+  well formed.
