@@ -88,8 +88,6 @@ module linked_list_queue_cntrl #(
    , output logic                                 busy_r
 );
 
-  `include "libtb_tb_top_inc.vh"
-
   `define ENCODE_W M
   `define ENCODE_SUFFIX M
   `include "encode.vh"
