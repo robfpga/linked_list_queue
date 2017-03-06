@@ -67,7 +67,7 @@ per cycle.
 
 By consequence of the nature of Linked List data structures, it is not possible
 to execute back-to-back pop operations to the same context. This limiation
-arises from the fact that the lookup of any secondary lookup may only precede
+arises from the fact that the lookup of any secondary lookup may only proceed
 once the initial lookup has completed. To accomplish this, forwarding logic is
 necessary at the output of the link-state RAM to its input. This cannot be
 realized while maintaining a competitive clock frequency.
