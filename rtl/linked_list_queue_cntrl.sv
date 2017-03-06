@@ -242,8 +242,6 @@ module linked_list_queue_cntrl #(
   logic                       lkup_empty_fault_w;
   logic                       lkup_en;
   //
-  addr_t                      addr_s2;
-  //
   fsm_init_t                  fsm_init_r;
   fsm_init_t                  fsm_init_w;
   logic                       fsm_init_en;
@@ -415,19 +413,6 @@ module linked_list_queue_cntrl #(
 
     end // block: pipe_PROC
 
-
-  // ------------------------------------------------------------------------ //
-  //
-  always_comb
-    begin : addr_s2_PROC
-
-      //
-      case (ucode_s2_r.push)
-        1'b1:    addr_s2  = state_s2_fwd.head;
-        default: addr_s2  = state_s2_fwd.tail;
-      endcase
-
-    end // block: addr_s2_PROC
 
   // ------------------------------------------------------------------------ //
   //
