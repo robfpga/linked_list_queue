@@ -53,7 +53,7 @@ struct test_0 : public linked_list_queue_tb
 
             bool is_push = true;
             if (fifo_[c].size() != 0)
-                is_push = libtb::random<bool>();
+                is_push = (libtb::random_integer_in_range(100) < 50);
 
             if (is_push)
                 occupancy++;
