@@ -37,9 +37,9 @@ linked_list_queue_tb::linked_list_queue_tb (sc_core::sc_module_name mn)
 {
     bind_rtl();
 
-    dont_initialize();
     SC_METHOD(m_checker);
     sensitive << e_tb_sample();
+    dont_initialize();
 }
 
 void linked_list_queue_tb::bind_rtl()
