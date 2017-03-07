@@ -294,7 +294,6 @@ module linked_list_queue_cntrl #(
         1'b1:
           state_s3_next.empty  = '0;
         default: begin
-          //state_t s = ucode_s2_r.state; // TODO: should be forwarded version
           state_s3_next.empty  = (state_s2_fwd.tail == state_s2_fwd.head);
         end
       endcase // case ({ucode_s2_r.push})
