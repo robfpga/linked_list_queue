@@ -35,6 +35,8 @@ solution reduced.
 git clone https://github.com/stephenry/linked_list_queue
 cd linked_list_queue
 git submodule update --init --recursive
+mkdir build
+cd build
 cmake ../
 make
 ~~~
