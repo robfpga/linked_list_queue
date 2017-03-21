@@ -27,7 +27,7 @@
 
 `include "pd_pkg.vh"
 
-module linked_list_fifo #(
+module linked_list_queue #(
 parameter int W = 32,
 parameter int CTXT = 16,
 parameter int M = 128
@@ -149,7 +149,7 @@ parameter int M = 128
 
   // ------------------------------------------------------------------------ //
   //
-  linked_list_queue_cntrl #(.W, .CTXT, .M) u_cntrl (
+  linked_list_queue_cntrl #(.W(W), .CTXT(CTXT), .M(M)) u_cntrl (
     //
       .clk                    (clk                )
     , .rst                    (rst                )
@@ -173,7 +173,7 @@ parameter int M = 128
 
   // ------------------------------------------------------------------------ //
   //
-  spsram #(.W, .N(M)) u_data_table (
+  spsram #(.W(W), .N(M)) u_data_table (
       .clk                    (clk                )
     , .en                     (data_table_en      )
     , .wen                    (data_table_wen     )

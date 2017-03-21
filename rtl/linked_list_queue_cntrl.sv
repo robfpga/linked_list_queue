@@ -88,18 +88,6 @@ module linked_list_queue_cntrl #(
    , output logic                                 busy_r
 );
 
-  `define ENCODE_W M
-  `define ENCODE_SUFFIX M
-  `include "encode.vh"
-  `undef ENCODE_W
-  `undef ENCODE_SUFFIX
-
-  `define FFS_W M
-  `define FFS_SUFFIX M
-  `include "ffs.vh"
-  `undef ENCODE_W
-  `undef ENCODE_SUFFIX
-
   // ======================================================================== //
   //                                                                          //
   // Typedefs                                                                 //
@@ -226,6 +214,8 @@ module linked_list_queue_cntrl #(
   logic                       fp_clear;
   addr_t                      fp_clear_id;
   m_t                         fp_state_r;
+  m_t                         fp_state_ffs;
+  addr_t                      fp_state_ffs_enc;
   logic                       fp_all_alloc_w;
   //
   logic                       cmd_adv;
@@ -261,7 +251,7 @@ module linked_list_queue_cntrl #(
 
       //
       fp_alloc     = (cmd_pass & cmd_accept & cmd_push);
-      fp_alloc_id  = EncodeM(FFSM(~fp_state_r));
+      fp_alloc_id  = fp_state_ffs_enc;
 
       //
       fp_clear     = valid_s4_r & (~ucode_s4_r.push);
@@ -766,9 +756,10 @@ module linked_list_queue_cntrl #(
 
   // ------------------------------------------------------------------------ //
   //
-  dpsram #(.W(STATE_W), .N(CTXT))u_state_table (
+  dpsrams #(.W(STATE_W), .N(CTXT)) u_state_table (
+    //
+      .clk                    (clk                )
     // Port 1
-      .clk1                   (clk                )
     , .en1                    (state_table_en1    )
     , .wen1                   (state_table_wen1   )
     , .addr1                  (state_table_addr1  )
@@ -776,7 +767,6 @@ module linked_list_queue_cntrl #(
     , .dout1                  (state_table_dout1  )
 
     // Port 2
-    , .clk2                   (clk                )
     , .en2                    (state_table_en2    )
     , .wen2                   (state_table_wen2   )
     , .addr2                  (state_table_addr2  )
@@ -794,5 +784,13 @@ module linked_list_queue_cntrl #(
     , .din                    (queue_table_din    )
     , .dout                   (queue_table_dout   )
   );
+
+  // ------------------------------------------------------------------------ //
+  //
+  encoder #(.W(M)) u_encoder (.x(fp_state_ffs), .n(fp_state_ffs_enc));
+
+  // ------------------------------------------------------------------------ //
+  //
+  ffs #(.W(M)) u_ffs (.x(~fp_state_r), .y(fp_state_ffs), .n());
 
 endmodule // linked_list_fifo
