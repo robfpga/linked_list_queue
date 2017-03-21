@@ -41,6 +41,19 @@ cmake ../
 make
 ~~~~
 
+## PD Flow
+
+
+A standard Vivado PD flow is available. It can be enabled by defining
+the TARGET_VIVADO symbol during cmake configuration. Presently, the
+design synthesizes to a 11ns period (~90 MHz). In likelihood, the
+design would be able to reach >100 MHz, but presently it does not due
+to the presence of arbitrarily placed OBUF and IBUF cells.
+~~~~
+cmake ../ -DTARGET_VIVADO=1
+make vivado
+~~~~
+
 ## Parameterizations
 
 * W the number of state bits remained by each Queue entry.
