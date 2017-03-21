@@ -25,23 +25,7 @@
 ## POSSIBILITY OF SUCH DAMAGE.
 ##========================================================================== //
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
-PROJECT(linked_list_queue)
+create_clock -period 11.0 -name CLK [get_ports clk]
 
-SET(CMAKE_CXX_STANDARD 11)
-
-# Each 'answer' replicates the same set of CMAKE targets. Although the targets
-# are in different directories, and therefore do not conflict, CMAKE
-# specifically disallows such a construction to remain compatible with GUI IDE.
-#
-set_property(GLOBAL PROPERTY ALLOW_DUPLICATE_CUSTOM_TARGETS 1)
-
-SET(CMAKE_MODULE_PATH
-  ${CMAKE_MODULE_PATH}
-  ${CMAKE_SOURCE_DIR}/contrib/libtb/cmake
-  ${CMAKE_SOURCE_DIR}/contrib/libpd/cmake
-  )
-
-ADD_SUBDIRECTORY(contrib)
-ADD_SUBDIRECTORY(rtl)
-ADD_SUBDIRECTORY(src)
+set_input_delay -clock CLK 1.0 [all_inputs]
+set_output_delay -clock CLK 1.0 [all_outputs]

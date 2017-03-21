@@ -25,23 +25,26 @@
 ## POSSIBILITY OF SUCH DAMAGE.
 ##========================================================================== //
 
-CMAKE_MINIMUM_REQUIRED(VERSION 3.2)
-PROJECT(linked_list_queue)
+set prj linked_list_queue
+create_project latency -in_memory
 
-SET(CMAKE_CXX_STANDARD 11)
+# Source
+read_verilog @CMAKE_CURRENT_SOURCE_DIR@/$prj.sv
+read_verilog @CMAKE_CURRENT_SOURCE_DIR@/linked_list_queue_cntrl.sv
+read_verilog @LIBV_ROOT@/delay_pipe.sv
+read_verilog @LIBV_ROOT@/bitset.sv
+read_verilog @LIBV_ROOT@/encoder.sv
+read_verilog @LIBV_ROOT@/ffs.sv
+read_verilog @LIBPD_TECH_ROOT@/dpsrams.sv
+read_verilog @LIBPD_TECH_ROOT@/spsram.sv
 
-# Each 'answer' replicates the same set of CMAKE targets. Although the targets
-# are in different directories, and therefore do not conflict, CMAKE
-# specifically disallows such a construction to remain compatible with GUI IDE.
-#
-set_property(GLOBAL PROPERTY ALLOW_DUPLICATE_CUSTOM_TARGETS 1)
+# XDC
+read_xdc @CMAKE_CURRENT_BINARY_DIR@/$prj.xdc
 
-SET(CMAKE_MODULE_PATH
-  ${CMAKE_MODULE_PATH}
-  ${CMAKE_SOURCE_DIR}/contrib/libtb/cmake
-  ${CMAKE_SOURCE_DIR}/contrib/libpd/cmake
-  )
-
-ADD_SUBDIRECTORY(contrib)
-ADD_SUBDIRECTORY(rtl)
-ADD_SUBDIRECTORY(src)
+# PD FLOW
+synth_design -name $prj -top $prj -include_dirs {@LIBPD_INCLUDE_DIRS@}
+opt_design
+place_design
+phys_opt_design
+route_design
+report_timing_summary

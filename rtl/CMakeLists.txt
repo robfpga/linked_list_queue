@@ -26,3 +26,4 @@
 ##========================================================================== //
 
 LIBTB_VERILATE(linked_list_queue)
+LIBPD_VIVADO(linked_list_queue)
